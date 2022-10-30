@@ -46,52 +46,33 @@ class EarthShip {
   constructor(name) {
     (this.name = name),
       (this.hull = 20),
-      (this.firepower = 5),
+      (this.firepower = 5 * 0.7),
       (this.accuracy = 0.7),
       (this.alive = true);
   }
   attack() {
-    let attDamage = Math.round(this.firepower - this.accuracy / 100);
-    for (let i = 0; i < alienShipArr.length; i++) {
-      if (ussHelloWorld.attack) {
-        console.log(
-          `${this.name} has attacked ${alienShipArr[i].name} for ${attDamage} points!`
-        );
-      }
-      if (alienShipArr.alive === true) {
-        ussHelloWorld.attack++;
-      } else if (alienShipArr === false) {
-        return;
-      }
-    }
-  }
-  damage() {
-    this.hull -= Math.random() * (0.8 - 0.6) + 0.6;
-    console.log(
-      `${this.name} has taken ${alienShipArr.firepower} points in damage! Hull integrity is at ${this.hull}.`
-    );
-    if (this.hull === 0) {
-      this.alive = false;
+    if (this.firepower > Math.random());
+    {
+      // calculate damage ~ firepower x accuracy (5 * 0.7); used Math.random to give it a range
+      alienShipArr[0].hull -= this.firepower;
       console.log(
-        `${this.name} has taken too much damage! ${this.name} has been destroyed!`
+        `${this.name} has hit the Andromedon for ${this.firepower} in damage!`
       );
     }
   }
+
   retreat() {
-    if (this.name == this.attack) {
-      document.addEventListener("click", (event) => {
-        // need retreat button
-      });
-    }
-    if (this.retreat == true) {
-      console.log(`${this.name} loses! A Time Paradox has been created!`);
-    }
+    console.log(
+      `${this.name} has retreated! The Daleks have won, a Time Paradox has been created!`
+    );
   }
 }
 
 // new EarthShip Instance
-const ussHelloWorld = new EarthShip("USS HelloWorld", 20, 5, 0.7);
-// console.log(ussHelloWorld); // output works properly
+const ussHelloWorld = new EarthShip("USS HelloWorld", 20, 5);
+console.log(ussHelloWorld); // output works properly
+
+// ussHelloWorld.retreat(); // retreat works properly
 
 // Aliens Class
 
@@ -104,30 +85,16 @@ class AlienShips {
       (this.alive = true);
   }
   attack() {
-    let alienAttackDamage = this.firepower - this.accuracy / 100;
-    for (let i = 0; i < 1; i++) {
-      if (alienShipArr[i].attack) {
-        console.log(
-          `${this.name} has attacked ${ussHelloWorld.name} for ${alienAttackDamage} points.`
-        );
-      }
-    }
-  }
-  damage() {
-    this.hull -= 5;
-    console.log(
-      `${this.name} has taken ${ussHelloWorld.firepower} points in damage.`
-    );
-    if (this.hull === 0) {
-      this.alive = false;
+    if (this.firepower > Math.random()) {
+      ussHelloWorld.hull -= this.firepower;
       console.log(
-        `${this.name} has taken too much damage! ${this.name} has been destroyed!`
+        `${this.name} has attacked ${ussHelloWorld.name} for ${this.firepower} points.`
       );
     }
   }
 }
 
-// ==========
+// ========== AlienShips Accuracy
 // using Math.trunc() to get rid of trailing decimals
 // I spent way too much time trying to figure out how to get rid of trailing decimals for the accuracy property.
 // I assigned the randomized accuracy to a variable
@@ -156,38 +123,40 @@ const roundAccuracy = (accuracy, decimalPlaces) =>
 // Aliens array
 const alienShipArr = [];
 
+// AlienShips instance
+
 const alienShip1 = new AlienShips(
-  "Andromedon One",
+  "Dalek One",
   Math.trunc(Math.random() * (6 - 3) + 3), // using Math.trunc() to get rid of trailing decimals for hull and firepower
   Math.trunc(Math.random() * (4 - 2) + 2),
   roundAccuracy(accuracy1, 2) // input accuracy and decimal place place into roundedAccuracy(variable, decimal place)
 );
 const alienShip2 = new AlienShips(
-  "Andromedon Two",
+  "Dalek Two",
   Math.trunc(Math.random() * (6 - 3) + 3),
   Math.trunc(Math.random() * (4 - 2) + 2),
   roundAccuracy(accuracy2, 2) * 1
 );
 const alienShip3 = new AlienShips(
-  "Andromedon Three",
+  "Dalek Three",
   Math.trunc(Math.random() * (6 - 3) + 3),
   Math.trunc(Math.random() * (4 - 2) + 2),
   roundAccuracy(accuracy3, 2)
 );
 const alienShip4 = new AlienShips(
-  "Andromedon Four",
+  "Dalek Four",
   Math.trunc(Math.random() * (6 - 3) + 3),
   Math.trunc(Math.random() * (4 - 2) + 2),
   roundAccuracy(accuracy4, 2)
 );
 const alienShip5 = new AlienShips(
-  "Andromedon Five",
+  "Dalek Five",
   Math.trunc(Math.random() * (6 - 3) + 3),
   Math.trunc(Math.random() * (4 - 2) + 2),
   roundAccuracy(accuracy5, 2)
 );
 const alienShip6 = new AlienShips(
-  "Andromedon Six",
+  "Dalek Six",
   Math.trunc(Math.random() * (6 - 3) + 3),
   Math.trunc(Math.random() * (4 - 2) + 2),
   roundAccuracy(accuracy6, 2)
@@ -204,37 +173,88 @@ for (let i = 0; i < 1; i++) {
   );
 }
 
-// console.log(alienShipArr); // output works properly
-/* ===== Game Round setup
+console.log(alienShipArr); // output works properly
 
-    1. You attack the first alien ship
-    2. If the ship survives, it attacks you
-    3. If you survive, you attack the ship again
-    4. If it survives, it attacks you again … etc
-    5. If you destroy the ship, you have the option to attack the next ship or to retreat
-    6. If you retreat, the game is over, perhaps leaving the game open for further developments or options
-    7. You win the game if you destroy all of the aliens
-    8. You lose the game if you are destroyed
- */
+console.log("===== Space Battle! Let's Play! =====");
 
-// const spaceBattle = {
-//   round: 3,
-//   start() {},
-// };
+// * ===== Game Round setup
 
-// for (let i = 0; i < alienShipArr.length; i++) {
-//   if (ussHelloWorld.attack) {
-//     console.log(`${this.name} has attacked ${alienShipArr[i].name}!`);
-//   }
-//   if (alienShipArr.alive === true) {
-//     ussHelloWorld.attack++;
-//   } else if (alienShipArr === false) {
-//     return;
-//   }
-// }
+// *   1. You attack the first alien ship
+// * 2. If the ship survives, it attacks you
+// * 3. If you survive, you attack the ship again
+// * 4. If it survives, it attacks you again … etc
+// * 5. If you destroy the ship, you have the option to attack the next ship or to retreat
+// * 6. If you retreat, the game is over, perhaps leaving the game open for further developments or options
+// * 7. You win the game if you destroy all of the aliens
+// * 8. You lose the game if you are destroyed
 
-// ussHelloWorld.attack(alienShipArr[1]);
+const attackButton = document.querySelector("#attack-button");
+const retreatButton = document.querySelector("#retreat-button");
+// const gameContainer = document.querySelector("#game-selector");
 
-// console.log(alienShipArr[1]);
-// ussHelloWorld.attack();
-// alienShipArr[1].attack();
+// const randomizer = Math.random();
+
+const game = {
+  round: 1,
+  playingGame: true,
+  earthShip: ussHelloWorld,
+  earthHull: ussHelloWorld.hull,
+  daleks: alienShipArr.length,
+  runGame() {
+    this.spaceBattle();
+
+    this.gameOver();
+  },
+  gameOver() {
+    if (this.playingGame == false) {
+      console.log("Game Over!");
+    }
+  },
+  spaceBattle() {
+    while (
+      ussHelloWorld.hull > 0 &&
+      this.playingGame == true &&
+      this.daleks > 0
+    ) {
+      console.log(`%c \nRound: ${this.round}`, "font-size: 20px; color: green");
+      ussHelloWorld.attack();
+      if (alienShipArr[0].hull > 0) {
+        console.log(`Daleks hull is at ${alienShipArr[0].hull}`);
+        alienShipArr[0].attack();
+        console.log(`Dalek ships remaining: ${this.daleks}`);
+        if (ussHelloWorld.hull <= 0) {
+          ussHelloWorld.alive = false;
+          console.log(`${ussHelloWorld.name} has been destroyed!`);
+          this.playingGame = false;
+        }
+        console.log(`USS Hello World Integrity: ${ussHelloWorld.hull}`);
+        this.round += 1;
+      } else {
+        this.round += 1;
+        console.log(
+          `%c ${alienShipArr[0].name} has taken too much damage, it has been destroyed!`,
+          "color: red"
+        );
+        alienShipArr.splice(0, 1); // removes destroyed alien from array
+        this.daleks -= 1;
+        console.log(`Dalek ships remaining: ${this.daleks}`);
+        if (this.daleks == 0) {
+          // no more aliens ends the game
+          console.log(
+            `%c ${ussHelloWorld.name} has destroyed all the Daleks, Doctor!, the Universe is saved!`,
+            "color: gold"
+          );
+          this.playingGame = false;
+        }
+      }
+    }
+  },
+};
+
+attackButton.addEventListener("click", () => {
+  game.runGame();
+});
+
+retreatButton.addEventListener("click", () => {
+  ussHelloWorld.retreat();
+});
