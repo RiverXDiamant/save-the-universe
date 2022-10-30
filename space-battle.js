@@ -223,6 +223,7 @@ const game = {
         alienShipArr[0].attack();
         console.log(`Dalek ships remaining: ${this.daleks}`);
         if (ussHelloWorld.hull <= 0) {
+          // ends game if Earth Ship hits 0
           ussHelloWorld.alive = false;
           console.log(`${ussHelloWorld.name} has been destroyed!`);
           this.playingGame = false;
@@ -230,7 +231,7 @@ const game = {
         console.log(`USS Hello World Integrity: ${ussHelloWorld.hull}`);
         this.round += 1;
       } else {
-        this.round += 1;
+        this.round += 1; // increments another round until all aliens are destroyed
         console.log(
           `%c ${alienShipArr[0].name} has taken too much damage, it has been destroyed!`,
           "color: red"
