@@ -56,7 +56,7 @@ class EarthShip {
       // calculate damage ~ firepower x accuracy (5 * 0.7); used Math.random to give it a range
       alienShipArr[0].hull -= this.firepower;
       console.log(
-        `${this.name} has hit the Andromedon for ${this.firepower} in damage!`
+        `${this.name} has hit the Dalek ship for ${this.firepower} in damage!`
       );
     }
   }
@@ -97,7 +97,7 @@ class AlienShips {
 // ========== AlienShips Accuracy
 // using Math.trunc() to get rid of trailing decimals
 // I spent way too much time trying to figure out how to get rid of trailing decimals for the accuracy property.
-// I assigned the randomized accuracy to a variable
+// I assigned the randomized accuracy to a variable, so each alien ship would have different accuracy values
 const accuracy1 = Math.random() * (0.8 - 0.6) + 0.6; // variable value the accuracy params provided
 const accuracy2 = Math.random() * (0.8 - 0.6) + 0.6;
 const accuracy3 = Math.random() * (0.8 - 0.6) + 0.6;
