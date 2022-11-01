@@ -54,6 +54,7 @@ class EarthShip {
     if (this.firepower > Math.random());
     {
       // calculate damage ~ firepower x accuracy (5 * 0.7); used Math.random to give it a range
+      // This only makes the damge 3.5 or 70% of the base 5 firepower; not really accuracy but leaving it at 5 aliens died on first hit
       alienShipArr[0].hull -= this.firepower;
       console.log(
         `${this.name} has hit the Dalek ship for ${this.firepower} in damage!`
@@ -211,11 +212,11 @@ const game = {
     }
   },
   spaceBattle() {
-    while (
-      ussHelloWorld.hull > 0 &&
-      this.playingGame == true &&
-      this.daleks > 0
-    ) {
+//     while (
+//       ussHelloWorld.hull > 0 &&
+//       this.playingGame == true &&
+//       this.daleks > 0
+//     ) {
       console.log(`%c \nRound: ${this.round}`, "font-size: 20px; color: green");
       ussHelloWorld.attack();
       if (alienShipArr[0].hull > 0) {
@@ -231,13 +232,13 @@ const game = {
         console.log(`USS Hello World Integrity: ${ussHelloWorld.hull}`);
         this.round += 1;
       } else {
-        this.round += 1; // increments another round until all aliens are destroyed
+        this.round += 1; // increments another round if there are more aliens
         console.log(
           `%c ${alienShipArr[0].name} has taken too much damage, it has been destroyed!`,
           "color: red"
         );
         alienShipArr.splice(0, 1); // removes destroyed alien from array
-        this.daleks -= 1;
+        this.daleks -= 1; // substracts aliens from alien total
         console.log(`Dalek ships remaining: ${this.daleks}`);
         if (this.daleks == 0) {
           // no more aliens ends the game
@@ -248,7 +249,7 @@ const game = {
           this.playingGame = false;
         }
       }
-    }
+//     }
   },
 };
 
